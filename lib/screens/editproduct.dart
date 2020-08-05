@@ -1,6 +1,6 @@
 import 'package:crud_operations_prac2/model/product.dart';
 import 'package:crud_operations_prac2/provider/product_provider.dart';
-import 'package:crud_operations_prac2/services/database.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +15,22 @@ class EditProduct extends StatefulWidget {
 
 class _EditProductState extends State<EditProduct> {
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    editProduct();
+  }
+
+  editProduct() {
+    final product = Provider.of<ProductProvider>(context, listen: false);
+
+    if (widget.product == null) {
+      product.loadValues(Product());
+    } else {
+      product.loadValues(widget.product);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +56,7 @@ class _EditProductState extends State<EditProduct> {
                   decoration: InputDecoration(hintText: 'Product name'),
                   validator: (value) {
                     if (value.isEmpty) {
-                      return 'Olease enter a valid product name';
+                      return 'Please enter a valid product name';
                     }
                     return null;
                   },

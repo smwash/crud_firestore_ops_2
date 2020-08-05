@@ -2,9 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crud_operations_prac2/model/product.dart';
 
 class Database {
-  final String productID;
-  Database({this.productID});
-
   CollectionReference productCollection =
       Firestore.instance.collection('products');
 
@@ -15,6 +12,7 @@ class Database {
         );
   }
 
+//get list of products from products collection.
   Stream<List<Product>> getProducts() {
     return productCollection.snapshots().map(
           (snapshot) => snapshot.documents
